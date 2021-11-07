@@ -8,6 +8,6 @@ module.exports.verifyToken = function(token){
     try{
         return verify(token, process.env.JWT_SECRET);
     }catch(error){
-        return false
+        return false;
     }
 }
