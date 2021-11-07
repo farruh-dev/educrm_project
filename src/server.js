@@ -1,15 +1,21 @@
 const express = require("express");
 const morgan = require("morgan");
+const databseMiddleware = require("./middlewares/databseMiddleware");
+const postgres = require("./modules/postgres");
 const route = require("./routes/route");
 
 const app = express()
 
 async function server(port, mode){
     try {
+        app.listen(port || 3536, () => { console.log("Server is ready")})
+
         app.use(express.json());
         app.use(express.urlencoded({extended: true}));
 
-        app.listen(port || 3536, () => { console.log("Server is ready")})
+        const db = await postgres();
+
+        await databseMiddleware(db, app)
 
         if(mode == "dev"){
             app.use(morgan("dev"));
