@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const customErrorMiddleware = require("./middlewares/customErrorMiddleware");
 const databseMiddleware = require("./middlewares/databseMiddleware");
 const postgres = require("./modules/postgres");
 const route = require("./routes/route");
@@ -16,6 +17,7 @@ async function server(port, mode){
         const db = await postgres();
 
         await databseMiddleware(db, app)
+        app.use(customErrorMiddleware)
 
         if(mode == "dev"){
             app.use(morgan("dev"));
