@@ -1,4 +1,4 @@
-const { generateCrypt } = require("../modules/bcrypt");
+const { generateCrypt, comparePassword } = require("../modules/bcrypt");
 const { createToken } = require("../modules/jwt");
 
 const {
@@ -44,9 +44,14 @@ module.exports = class UserController {
                     },
                     raw: true
                 }
-            ) 
-
+            )
+            
             if(!user) throw new res.error(400, "User not found")
+            
+            const check_password = await comparePassword(data.password, user.user_password);
+
+            if (!check_password) throw new res.error(400, "Password is incorrect");
+
 
             await req.db.sessions.destroy({
 				where: {
