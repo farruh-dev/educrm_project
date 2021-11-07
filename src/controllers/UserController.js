@@ -19,7 +19,7 @@ module.exports = class UserController {
                 user_gender: data.gender
             })
 
-            res.status(200).json({
+            res.status(201).json({
                 ok: true,
                 message: "User created successfully"
             })
