@@ -1,7 +1,7 @@
-const { UserSignUpController } = require("../../controllers/UserController");
+const { CreateUserController } = require("../../controllers/UserController");
 
 const UserRouter = require("express").Router();
 
-UserRouter.post("/signup", UserSignUpController)
+UserRouter.post("/signup", CreateUserController)
 
 module.exports = UserRouter
