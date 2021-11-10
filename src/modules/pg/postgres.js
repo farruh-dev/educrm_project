@@ -1,5 +1,6 @@
 require("dotenv").config()
 const { Sequelize } = require("sequelize");
+const PermissionModel = require("../../models/PermissionModel");
 const SessionModel = require("../../models/SessionModel");
 const UserModel = require("../../models/UserModel");
 const init = require("./init");
@@ -15,6 +16,7 @@ module.exports = async function() {
 
         db.users = await UserModel(sequelize, Sequelize)
         db.sessions = await SessionModel(sequelize, Sequelize)
+        db.permissions = await PermissionModel(sequelize, Sequelize)
 
         await init(db);
 
