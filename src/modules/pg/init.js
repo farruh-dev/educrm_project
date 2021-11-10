@@ -11,6 +11,10 @@ async function init(db){
                 user_password: await generateCrypt("admin"),
                 user_gender: "male"
             })
+
+            const admin_permission = await db.permissions.create({
+                permission_name: "admin"
+            })
     
         } catch (error) {
             console.log("INIT_ERROR", error);
