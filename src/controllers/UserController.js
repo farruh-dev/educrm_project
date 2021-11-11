@@ -28,6 +28,7 @@ module.exports = class UserController {
 				error.errorCode = 400;
 				error.message = "Username already exists";
 			}
+
 			next(error);
         }
     }

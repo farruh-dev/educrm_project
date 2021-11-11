@@ -22,12 +22,10 @@ module.exports = async function authMiddleware(req, res, next){
 
         req.session = session;
 
-        console.log(req.session);
-
         next()
 
     }catch(error){
-        console.log("AUTH_ERROR: ", error);
+
         next(error)
     }
 }
