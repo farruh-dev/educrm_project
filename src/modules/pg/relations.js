@@ -34,14 +34,14 @@ module.exports = async (db) => {
     // Users permissions && permissions
     await db.permissions.hasMany(db.user_permissions, {
         foreignKey: {
-            name: "permission_name",
+            name: "permission_id",
             allowNull: false
         }
     })
 
     await db.user_permissions.belongsTo(db.permissions, {
         foreignKey: {
-            name: "permission_name",
+            name: "permission_id",
             allowNull: false
         }
     })

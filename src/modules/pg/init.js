@@ -5,7 +5,7 @@ async function init(db){
 
     if(count === 0){
         try {
-            const initial_user = await db.users.create({
+            const initial_admin = await db.users.create({
                 user_username: "admin",
                 user_name: "admin",
                 user_password: await generateCrypt("admin"),
@@ -14,6 +14,11 @@ async function init(db){
 
             const admin_permission = await db.permissions.create({
                 permission_name: "admin"
+            })
+
+            const set_permission = await db.users.create({
+                user_id: initial_admin.dataValues.user_id,
+                permission_name: admin_permission.dataValues.permission_name
             })
     
         } catch (error) {
