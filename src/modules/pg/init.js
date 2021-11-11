@@ -16,9 +16,9 @@ async function init(db){
                 permission_name: "admin"
             })
 
-            const set_permission = await db.users.create({
+            const set_permission = await db.user_permissions.create({
                 user_id: initial_admin.dataValues.user_id,
-                permission_name: admin_permission.dataValues.permission_name
+                permission_id: admin_permission.dataValues.permission_id
             })
     
         } catch (error) {

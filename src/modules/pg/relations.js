@@ -31,6 +31,7 @@ module.exports = async (db) => {
             allowNull: false
         }
     })
+    
     // Users permissions && permissions
     await db.permissions.hasMany(db.user_permissions, {
         foreignKey: {

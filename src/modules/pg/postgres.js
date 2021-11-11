@@ -20,9 +20,10 @@ module.exports = async function() {
         db.permissions = await PermissionModel(sequelize, Sequelize)
         db.user_permissions = await UserPermissionsModel(sequelize, Sequelize)
 
+        await relations(db)
+        
         await init(db);
 
-        await relations(db)
 
         await sequelize.sync()
 
