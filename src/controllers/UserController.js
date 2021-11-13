@@ -29,6 +29,7 @@ module.exports = class UserController {
 				error.message = "Username already exists";
 			}
 
+            console.log(error);
 			next(error);
         }
     }

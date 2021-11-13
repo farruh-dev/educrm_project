@@ -1,21 +1,22 @@
 const { verifyToken } = require("../modules/jwt")
 
-module.exports = async function authMiddleware(req, res, next){
+module.exports = async function permissionMiddleware(req, res, next){
     try{
         
-        const permission = await req.db.user_permissions.findAll({
+        const permissions = await req.db.user_permissions.findAll({
             where: {
                 user_id: req.session.user_id
             },
-            incude: req.db.permissions
+            include: req.db.permissions,
+            raw: true
         })
 
-        console.log(permission);
+        req.user_permissions = permissions
 
         next()
 
     }catch(error){
-
+        console.log(error);
         next(error)
     }
 }
