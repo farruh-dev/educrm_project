@@ -5,6 +5,8 @@ const permissionMiddleware = require("../../middlewares/permissionMiddleware");
 
 const TeacherRouter = require("express").Router();
 
-TeacherRouter.post("/", [authMiddleware, permissionMiddleware], CreateTeacherPostController);
+TeacherRouter.use([authMiddleware, permissionMiddleware])
+
+TeacherRouter.post("/", CreateTeacherPostController);
 
 module.exports = TeacherRouter
