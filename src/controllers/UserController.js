@@ -92,4 +92,33 @@ module.exports = class UserController {
             next(error)
         }
     }
+    static async GetAllUsersController(req, res, next) {
+        try {
+            permissionChecker("admin", req.user_permissions, res.error)
+
+            let page = req.params.page ? req.params.page - 1 : 0;
+            let limit = req.params.limit || 15;
+
+            const users = await req.db.users.findAll({
+                attributes: {
+                    exclude: ["user_password"]
+                },
+                limit: limit,
+                offset: page * 15,
+                order: [["createdAt", "DESC"]] 
+            })
+
+            if(!users) throw new res.error(404, "No users found")
+
+            res.status(200).json({
+                ok: true,
+                data: {
+                    users
+                }
+            })
+
+        } catch (error) {
+            next(error)
+        }
+    }
 }
