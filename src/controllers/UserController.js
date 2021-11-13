@@ -73,6 +73,8 @@ module.exports = class UserController {
                 }
             )
 
+            console.log(session);
+
             const token = await createToken({
                 session_id: session.dataValues.session_id
             })

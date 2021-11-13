@@ -18,8 +18,9 @@ module.exports = class Validations{
     }
     static async AddTeacherValidation(data, CustomError){
         return await joi.object({
-            teacher_id: joi.uuid().required().error(new CustomError(400, "User id is not valid")),
-            teacher_phone: joi.string().required().regex(/^998(9[0123456789]|6[125679]|7[01234569])[0-9]{7}$/).error(new CustomError(400, "Phone number is not valid")),
+            user_id: joi.string().uuid().required().error(new CustomError(400, "User id is not valid")),
+            phone: joi.string().required().regex(/^998(9[0123456789]|6[125679]|7[01234569])[0-9]{7}$/).error(new CustomError(400, "Phone number is not valid")),
+            skills: joi.array().required().error(new CustomError(400, "Skills are not valid"))
         }).validateAsync(data)
     }
 }
