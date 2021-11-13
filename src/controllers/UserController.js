@@ -1,3 +1,4 @@
+const permissionChecker = require("../helpers/permissionChecker");
 const { generateCrypt, comparePassword } = require("../modules/bcrypt");
 const { createToken } = require("../modules/jwt");
 
@@ -8,6 +9,9 @@ const {
 module.exports = class UserController {
     static async CreateUserController(req, res, next) {
         try {
+
+            permissionChecker("admin", req.user_permissions, res.error)
+
             const data = await UserSignUpValidation(req.body, res.error)
 
             if (!data) throw new res.error(400, "Given data is not valid");

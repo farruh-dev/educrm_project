@@ -7,7 +7,7 @@ const UserPermissionsModel = require("../../models/UserPermissionsModel");
 const init = require("./init");
 const relations = require("./relations");
 
-const sequelize = new Sequelize(process.env.DB_URL, {logging: console.log})
+const sequelize = new Sequelize(process.env.DB_URL, {logging: false})
 
 module.exports = async function() {
     try {
@@ -22,10 +22,10 @@ module.exports = async function() {
 
         await relations(db)
         
-        await init(db);
         
         await sequelize.sync({force: false})
         
+        await init(db);
 
         return db;
 
