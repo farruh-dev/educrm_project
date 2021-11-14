@@ -96,8 +96,9 @@ module.exports = class UserController {
         try {
             permissionChecker("admin", req.user_permissions, res.error)
 
-            let page = req.params.page ? req.params.page - 1 : 0;
-            let limit = req.params.limit || 15;
+            let page = req.query.page ? req.query.page - 1 : 0;
+            let limit = req.query.limit || 15;
+            let order = req.query.order == "DESC" ? "DESC" : "ASC";
 
             const users = await req.db.users.findAll({
                 attributes: {
@@ -105,7 +106,7 @@ module.exports = class UserController {
                 },
                 limit: limit,
                 offset: page * 15,
-                order: [["createdAt", "DESC"]] 
+                order: [["createdAt", order]] 
             })
 
             if(!users) throw new res.error(404, "No users found")
