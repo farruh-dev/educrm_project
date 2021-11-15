@@ -29,4 +29,46 @@ module.exports = class TeacherController{
             next(error)
         }
     }
+
+    static async TeacherUpdatePutController(req, res, next) {
+        try {
+            console.log(req.params)
+            permissionChecker("admin", req.user_permissions, res.error);
+
+            const teacher_id = req.params.teacher_id;
+
+            const teacher = await req.db.teachers.findOne({
+                where: {
+                    teacher_id,
+                },
+            });
+
+            if (!teacher) throw new res.error(404, "Teacher not found");
+
+            const data = await AddTeacherValidation(
+                req.body,
+                res.error
+            );
+
+            await req.db.teachers.update(
+                {
+                    user_id: data.user_id,
+                    teacher_phone: data.phone,
+                    teacher_skills: data.skills,
+                },
+                {
+                    where: {
+                        teacher_id,
+                    },
+                }
+            );
+
+            res.status(200).json({
+                ok: true,
+                message: "Updated successfully",
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
 }
