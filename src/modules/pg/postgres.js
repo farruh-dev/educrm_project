@@ -6,6 +6,7 @@ const TeacherModel = require("../../models/TeacherModel");
 const UserModel = require("../../models/UserModel");
 const UserPermissionsModel = require("../../models/UserPermissionsModel");
 const CourseModel = require("../../models/CourseModel");
+const ApplicantModel = require("../../models/ApplicantModel");
 const init = require("./init");
 const relations = require("./relations");
 
@@ -23,6 +24,7 @@ module.exports = async function() {
         db.user_permissions = await UserPermissionsModel(sequelize, Sequelize)
         db.teachers = await TeacherModel(sequelize, Sequelize)
         db.courses = await CourseModel(sequelize, Sequelize)
+        db.applicants = await ApplicantModel(sequelize, Sequelize)
 
         await relations(db)
         

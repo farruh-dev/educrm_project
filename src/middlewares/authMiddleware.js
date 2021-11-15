@@ -17,8 +17,6 @@ module.exports = async function authMiddleware(req, res, next){
             include: req.db.users,
             raw: true
         })
-        console.log(token.session_id);
-        console.log(session);
 
         if(!session) throw new res.error(401, "Session does not exist");
 
