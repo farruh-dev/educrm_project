@@ -7,10 +7,11 @@ const UserModel = require("../../models/UserModel");
 const UserPermissionsModel = require("../../models/UserPermissionsModel");
 const CourseModel = require("../../models/CourseModel");
 const ApplicantModel = require("../../models/ApplicantModel");
+const GroupModel = require("../../models/GroupModel");
 const init = require("./init");
 const relations = require("./relations");
 
-const sequelize = new Sequelize(process.env.DB_URL, {logging: false})
+const sequelize = new Sequelize(process.env.DB_URL, {logging: true})
 
 module.exports = async function() {
     try {
@@ -25,6 +26,7 @@ module.exports = async function() {
         db.teachers = await TeacherModel(sequelize, Sequelize)
         db.courses = await CourseModel(sequelize, Sequelize)
         db.applicants = await ApplicantModel(sequelize, Sequelize)
+        db.groups = await GroupModel(sequelize, Sequelize)
 
         await relations(db)
         

@@ -65,4 +65,37 @@ module.exports = async (db) => {
         }
     })
 
+    // Applicants && users
+
+    await db.users.hasMany(db.applicants, {
+        foreignKey: {
+            name: "user_id",
+            allowNull: false,
+        },
+    });
+
+    await db.applicants.belongsTo(db.users, {
+        foreignKey: {
+            name: "user_id",
+            allowNull: false,
+        },
+    });
+
+
+    // Teachers && applicants
+
+    await db.courses.hasMany(db.applicants, {
+        foreignKey: {
+            name: "course_id",
+            allowNull: false,
+        },
+    });
+
+    await db.applicants.belongsTo(db.courses, {
+        foreignKey: {
+            name: "course_id",
+            allowNull: false,
+        },
+    });
+
 }
