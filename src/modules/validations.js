@@ -29,4 +29,26 @@ module.exports = class Validations{
             skills: joi.array().required().error(new CustomError(400, "Skills are not valid"))
         }).validateAsync(data)
     }
+    static async CourseCreateValidation(data, CustomError) {
+        return await joi
+            .object({
+                name: joi
+                    .string()
+                    .min(8)
+                    .max(128)
+                    .required()
+                    .error(new CustomError(400, "Name is invalid")),
+                description: joi
+                    .string()
+                    .required()
+                    .error(new CustomError(400, "Description is invalid"))
+                    .min(64),
+                price: joi
+                    .number()
+                    .min(0)
+                    .error(new CustomError(400, "Price is invalid"))
+                    .required(),
+            })
+            .validateAsync(data);
+    }
 }
